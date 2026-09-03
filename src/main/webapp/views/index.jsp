@@ -24,7 +24,10 @@
                     <h4 class="text-white mb-4">BaiTap Admin</h4>
                     <nav class="nav flex-column gap-2">
                         <a class="rounded p-2" href="${pageContext.request.contextPath}/home">Tổng quan</a>
-                        <a class="rounded p-2" href="${pageContext.request.contextPath}/admin/category/list">Danh mục</a>
+                        <c:choose>
+                            <c:when test="${sessionScope.account.roleid == 1}"><a class="rounded p-2" href="${pageContext.request.contextPath}/admin/category/list">Danh mục</a></c:when>
+                            <c:otherwise><a class="rounded p-2" href="${pageContext.request.contextPath}/category">Danh mục</a></c:otherwise>
+                        </c:choose>
                         <c:choose>
                             <c:when test="${not empty sessionScope.account}">
                                 <a class="rounded p-2" href="${pageContext.request.contextPath}/logout">Đăng xuất</a>
