@@ -6,6 +6,7 @@
 
 	<persistence-unit name="jpa-hibernate-mysql">
 		<class>baitap.com.models.Category</class>
+		<class>baitap.com.models.Product</class>
 
 		<properties>
 			<property name="jakarta.persistence.jdbc.driver"

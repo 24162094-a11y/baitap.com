@@ -10,14 +10,17 @@ import jakarta.servlet.http.Cookie;
 
 import baitap.com.entity.UserModel;
 import baitap.com.models.UserService;
+import baitap.com.service.ProductService;
+import baitap.com.service.impl.ProductServiceImpl;
 
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"", "/", "/home", "/login", "/register", "/error", "/logout"})
+@WebServlet(urlPatterns = {"", "/", "/home", "/login", "/register", "/activate", "/forgot-password", "/reset-password", "/error", "/logout"})
 public class HomeController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     private UserService userService = new UserService();
+    private ProductService productService = new ProductServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
@@ -53,12 +56,22 @@ public class HomeController extends HttpServlet {
             case "/register":
                 req.getRequestDispatcher("/views/register.jsp").forward(req, resp);
                 break;
+            case "/activate":
+                req.getRequestDispatcher("/views/activate.jsp").forward(req, resp);
+                break;
+            case "/forgot-password":
+                req.getRequestDispatcher("/views/forgot-password.jsp").forward(req, resp);
+                break;
+            case "/reset-password":
+                req.getRequestDispatcher("/views/reset-password.jsp").forward(req, resp);
+                break;
             case "/error":
                 req.getRequestDispatcher("/views/error.jsp").forward(req, resp);
                 break;
             case "/home":
             case "/":
             default:
+                req.setAttribute("products", productService.getLatest(10));
                 req.getRequestDispatcher("/views/index.jsp").forward(req, resp);
                 break;
         }
@@ -90,6 +103,7 @@ public class HomeController extends HttpServlet {
             }
         } else if ("/register".equals(path)) {
             String username = req.getParameter("username");
+            String email = req.getParameter("email");
             String password = req.getParameter("password");
             String confirmPassword = req.getParameter("confirmPassword");
 
@@ -97,13 +111,25 @@ public class HomeController extends HttpServlet {
                 req.setAttribute("alert", "Mật khẩu xác nhận không khớp");
                 req.setAttribute("username", username);
                 req.getRequestDispatcher("/views/register.jsp").forward(req, resp);
-            } else if (!userService.register(username, password)) {
+            } else if (!userService.register(username, email, password)) {
                 req.setAttribute("alert", "Username đã tồn tại hoặc không thể tạo tài khoản");
                 req.setAttribute("username", username);
                 req.getRequestDispatcher("/views/register.jsp").forward(req, resp);
             } else {
-                resp.sendRedirect(req.getContextPath() + "/login?registered=true");
+                resp.sendRedirect(req.getContextPath() + "/activate?username=" + java.net.URLEncoder.encode(username, java.nio.charset.StandardCharsets.UTF_8));
             }
+        } else if ("/activate".equals(path)) {
+            if (userService.activate(req.getParameter("username"), req.getParameter("otp"))) {
+                resp.sendRedirect(req.getContextPath() + "/login?registered=true");
+            } else { req.setAttribute("alert", "OTP không đúng hoặc đã hết hạn"); req.getRequestDispatcher("/views/activate.jsp").forward(req, resp); }
+        } else if ("/forgot-password".equals(path)) {
+            if (userService.requestPasswordReset(req.getParameter("username"))) {
+                resp.sendRedirect(req.getContextPath() + "/reset-password?username=" + java.net.URLEncoder.encode(req.getParameter("username"), java.nio.charset.StandardCharsets.UTF_8));
+            } else { req.setAttribute("alert", "Không tìm thấy tài khoản có email"); req.getRequestDispatcher("/views/forgot-password.jsp").forward(req, resp); }
+        } else if ("/reset-password".equals(path)) {
+            if (userService.resetPassword(req.getParameter("username"), req.getParameter("otp"), req.getParameter("password"))) {
+                resp.sendRedirect(req.getContextPath() + "/login?registered=true");
+            } else { req.setAttribute("alert", "OTP không đúng hoặc đã hết hạn"); req.getRequestDispatcher("/views/reset-password.jsp").forward(req, resp); }
         }
     }
 }

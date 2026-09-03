@@ -88,6 +88,10 @@
                         <a class="btn btn-primary" href="${pageContext.request.contextPath}/admin/category/list">Mở quản lý danh mục</a>
                     </div>
                 </div>
+                <section class="mt-4">
+                    <div class="d-flex justify-content-between align-items-center"><h2 class="h5">10 sản phẩm mới nhất</h2><a href="${pageContext.request.contextPath}/product">Xem tất cả</a></div>
+                    <div class="row g-3"><c:forEach items="${products}" var="product"><div class="col-sm-6 col-lg-3"><a class="card h-100 text-decoration-none" href="${pageContext.request.contextPath}/product/detail?id=${product.id}"><c:if test="${not empty product.image}"><img src="${pageContext.request.contextPath}/image?fname=${product.image}" class="card-img-top" style="height:150px;object-fit:cover"></c:if><div class="card-body"><h3 class="h6 text-dark">${product.name}</h3><p class="text-primary mb-0">${product.price} đ</p></div></a></div></c:forEach></div>
+                </section>
             </main>
         </div>
     </div>

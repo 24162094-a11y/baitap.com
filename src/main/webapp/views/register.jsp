@@ -13,6 +13,10 @@
         <h3 class="card-title text-center mb-4 text-primary fw-bold">ĐĂNG KÝ</h3>
         <form action="${pageContext.request.contextPath}/register" method="post">
             <div class="mb-3">
+                <label class="form-label">Email nhận OTP</label>
+                <input type="email" name="email" class="form-control" required autocomplete="email">
+            </div>
+            <div class="mb-3">
                 <label class="form-label">Tên đăng nhập</label>
                 <input type="text" name="username" class="form-control" placeholder="Nhập username" value="${username}" autocomplete="username" required>
             </div>

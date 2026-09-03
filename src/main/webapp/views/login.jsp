@@ -28,6 +28,7 @@
             <button type="submit" class="btn btn-primary w-100 mt-2">Đăng nhập</button>
         </form>
         <p class="text-center mt-3 mb-0">Chưa có tài khoản? <a href="${pageContext.request.contextPath}/register">Đăng ký</a></p>
+        <p class="text-center mb-0"><a href="${pageContext.request.contextPath}/forgot-password">Quên mật khẩu?</a></p>
     </div>
 </body>
 </html>
