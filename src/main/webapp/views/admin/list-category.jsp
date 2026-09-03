@@ -20,7 +20,7 @@
 	<div class="row">
 		<aside class="col-md-3 col-lg-2 sidebar p-0">
 			<div class="p-4">
-				<h4 class="text-white mb-4">BaiTap Admin</h4>
+				<h4 class="text-white mb-4">Bài tập - Admin</h4>
 				<nav class="nav flex-column gap-2">
 					<a class="rounded p-2" href="${pageContext.request.contextPath}/home">Tổng quan</a>
 					<a class="rounded p-2 bg-primary" href="${pageContext.request.contextPath}/admin/category/list">Danh mục</a>
