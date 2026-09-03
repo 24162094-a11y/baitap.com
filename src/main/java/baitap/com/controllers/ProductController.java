@@ -20,7 +20,8 @@ public class ProductController extends HttpServlet {
         }
         int page = 1;
         try { page = Math.max(1, Integer.parseInt(request.getParameter("page"))); } catch (Exception ignored) { }
-        request.setAttribute("products", service.getPage(page, 6));
+        String categoryId = request.getParameter("categoryId");
+        request.setAttribute("products", categoryId == null ? service.getPage(page, 6) : service.getByCategory(Integer.parseInt(categoryId)));
         request.setAttribute("page", page);
         request.setAttribute("totalPages", (service.count() + 5) / 6);
         request.getRequestDispatcher("/views/product.jsp").forward(request, response);

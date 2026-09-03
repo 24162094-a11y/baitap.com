@@ -9,6 +9,7 @@ public interface ProductDAO {
     void delete(int id);
     Product get(int id);
     List<Product> getLatest(int limit);
+    List<Product> getByCategory(int categoryId);
     List<Product> getPage(int page, int size);
     long count();
 }

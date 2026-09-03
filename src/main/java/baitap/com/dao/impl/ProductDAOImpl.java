@@ -50,6 +50,13 @@ public class ProductDAOImpl implements ProductDAO {
                 .setMaxResults(limit).getResultList(); } finally { manager.close(); }
     }
 
+    @Override public List<Product> getByCategory(int categoryId) {
+        EntityManager manager = JpaConfig.getEntityManager();
+        try { return manager.createQuery("SELECT p FROM Product p WHERE p.category.id = :categoryId ORDER BY p.createdDate DESC", Product.class)
+                .setParameter("categoryId", categoryId).getResultList(); }
+        finally { manager.close(); }
+    }
+
     @Override public List<Product> getPage(int page, int size) {
         EntityManager manager = JpaConfig.getEntityManager();
         try { return manager.createQuery("SELECT p FROM Product p ORDER BY p.createdDate DESC", Product.class)
