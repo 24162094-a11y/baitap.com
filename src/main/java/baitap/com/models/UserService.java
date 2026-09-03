@@ -39,11 +39,28 @@ public class UserService {
             statement.setString(4, otp);
             statement.setLong(5, System.currentTimeMillis() + 10 * 60 * 1000L);
             boolean inserted = statement.executeUpdate() == 1;
-            if (inserted) MailService.send(email.trim(), "Kich hoat tai khoan", "Ma OTP kich hoat cua ban: " + otp);
+            if (inserted) {
+                try {
+                    MailService.send(email.trim(), "Kich hoat tai khoan", "Ma OTP kich hoat cua ban: " + otp);
+                } catch (Exception mailException) {
+                    deleteUser(normalizedUsername);
+                    return false;
+                }
+            }
             return inserted;
         } catch (Exception e) {
             e.printStackTrace();
             return false;
+        }
+    }
+
+    private void deleteUser(String username) {
+        try (Connection connection = new DBConnection().getConnection();
+             PreparedStatement statement = connection.prepareStatement("DELETE FROM `user` WHERE username = ?")) {
+            statement.setString(1, username);
+            statement.executeUpdate();
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
     }
 
