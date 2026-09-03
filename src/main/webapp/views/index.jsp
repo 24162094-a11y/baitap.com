@@ -27,6 +27,7 @@
                             <c:when test="${sessionScope.account.roleid == 1}">Bài tập - Admin</c:when>
                             <c:otherwise>Bài tập - User</c:otherwise>
                         </c:choose>
+                        <c:if test="${not empty sessionScope.account}"><a class="rounded p-2" href="${pageContext.request.contextPath}/profile">Hồ sơ cá nhân</a></c:if>
                     </h4>
                     <nav class="nav flex-column gap-2">
                         <a class="rounded p-2" href="${pageContext.request.contextPath}/home">Tổng quan</a>
