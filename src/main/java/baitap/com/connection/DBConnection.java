@@ -8,7 +8,8 @@ public class DBConnection {
 	private final String dbName = "web_bai01";
 	private final String portNumber = "3306";
 	private final String userID = "root";
-	private final String password = System.getenv().getOrDefault("MYSQL_PASSWORD", "YOUR_MYSQL_PASSWORD");
+	private final String password = System.getProperty("MYSQL_PASSWORD",
+			System.getenv().getOrDefault("MYSQL_PASSWORD", "YOUR_MYSQL_PASSWORD"));
 
 	public Connection getConnection() throws Exception {
 		String url = "jdbc:mysql://"
