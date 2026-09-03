@@ -15,7 +15,7 @@
 				value="jdbc:mysql://localhost:3306/web_bai01?useSSL=false&amp;serverTimezone=Asia/Ho_Chi_Minh&amp;allowPublicKeyRetrieval=true" />
 			<property name="jakarta.persistence.jdbc.user" value="root" />
 			<property name="jakarta.persistence.jdbc.password"
-				value="YOUR_MYSQL_PASSWORD" />
+				value="quocphu0602@" />
 			<property name="hibernate.hbm2ddl.auto" value="validate" />
 			<property name="hibernate.dialect"
 				value="org.hibernate.dialect.MySQLDialect" />

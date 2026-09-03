@@ -9,8 +9,7 @@ public final class JpaConfig {
     private static final EntityManagerFactory FACTORY =
         Persistence.createEntityManagerFactory("jpa-hibernate-mysql", java.util.Map.of(
             "jakarta.persistence.jdbc.password",
-                System.getProperty("MYSQL_PASSWORD",
-                    System.getenv().getOrDefault("MYSQL_PASSWORD", "YOUR_MYSQL_PASSWORD"))));
+                    "quocphu0602@"));
 
     private JpaConfig() {
     }
