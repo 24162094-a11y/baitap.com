@@ -21,7 +21,13 @@
         <div class="row">
             <aside class="col-md-3 col-lg-2 sidebar p-0">
                 <div class="p-4">
-                    <h4 class="text-white mb-4">BaiTap Admin</h4>
+                    <h4 class="text-white mb-4">
+                        <c:choose>
+                            <c:when test="${empty sessionScope.account}">Chưa đăng nhập</c:when>
+                            <c:when test="${sessionScope.account.roleid == 1}">Bài tập - Admin</c:when>
+                            <c:otherwise>Bài tập - User</c:otherwise>
+                        </c:choose>
+                    </h4>
                     <nav class="nav flex-column gap-2">
                         <a class="rounded p-2" href="${pageContext.request.contextPath}/home">Tổng quan</a>
                         <c:choose>
