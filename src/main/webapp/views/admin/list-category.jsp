@@ -24,6 +24,7 @@
 				<nav class="nav flex-column gap-2">
 					<a class="rounded p-2" href="${pageContext.request.contextPath}/home">Tổng quan</a>
 					<a class="rounded p-2 bg-primary" href="${pageContext.request.contextPath}/admin/category/list">Danh mục</a>
+					<a class="rounded p-2" href="${pageContext.request.contextPath}/admin/product/list">Sản phẩm</a>
 					<a class="rounded p-2" href="${pageContext.request.contextPath}/logout">Đăng xuất</a>
 				</nav>
 			</div>
@@ -35,6 +36,7 @@
 					<h1 class="h3 mb-0">Danh mục</h1>
 				</div>
 				<a class="btn btn-primary" href="${pageContext.request.contextPath}/admin/category/add">+ Thêm danh mục</a>
+				<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/admin/product/list">Quản lý sản phẩm</a>
 			</div>
 			<div class="card border-0 shadow-sm">
 				<div class="card-body p-0">
